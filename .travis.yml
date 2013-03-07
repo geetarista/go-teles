@@ -5,8 +5,10 @@ before_install:
   - sudo apt-get -y install build-essential erlang git-core
   - pushd /home/travis
   - git clone https://github.com/armon/teles
+  - pushd teles
   - make deps
   - make rel
+  - popd
   - popd
   - /home/travis/teles/rel/teles/bin/teles start
 install: cd teles && go get -d -v && go build -v

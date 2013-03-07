@@ -3,12 +3,12 @@ Provides a client abstraction around the Teles interface.
 
 Example:
 	client := teles.Client{Server: "10.0.0.30:8673"}
-	filter := teles.Space{Name: "coolspace"}
-	if err := teles.CreateFilter(filter); err != nil {
+	space := teles.Space{Name: "coolspace"}
+	if err := teles.CreateSpace(space); err != nil {
 		// handle error
 	}
-	filters, _ := teles.ListFilters()
-	fmt.Printf("%+v", filters[0])
+	spaces, _ := teles.ListSpaces()
+	fmt.Printf("%+v", spaces[0])
 */
 package teles
 
@@ -44,7 +44,7 @@ func (c *Client) GetSpace(name string) *Space {
 	return &Space{Name: name, Conn: c.Conn}
 }
 
-// Lists all the available filters
+// Lists all the available spaces
 func (c *Client) ListSpaces() (responses []string, err error) {
 	err = c.Conn.Send("list spaces")
 	if err != nil {

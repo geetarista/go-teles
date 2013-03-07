@@ -28,8 +28,8 @@ func TestCreateSpace(t *testing.T) {
 func TestGetSpace(t *testing.T) {
 	client := NewClient(serverAddress)
 	defer client.Conn.Socket.Close()
-	filter := client.GetSpace(validSpace.Name)
-	if filter.Name != validSpace.Name {
+	space := client.GetSpace(validSpace.Name)
+	if space.Name != validSpace.Name {
 		t.Error("Name not equal")
 	}
 }
@@ -37,10 +37,10 @@ func TestGetSpace(t *testing.T) {
 func TestListSpaces(t *testing.T) {
 	client := NewClient(serverAddress)
 	defer client.Conn.Socket.Close()
-	filters, err := client.ListSpaces()
+	spaces, err := client.ListSpaces()
 	failIfError(t, err)
-	if filters[0] == validSpace.Name {
-		fmt.Printf("%+v\n", filters)
+	if spaces[0] == validSpace.Name {
+		fmt.Printf("%+v\n", spaces)
 		t.Error(validSpace.Name)
 	}
 }

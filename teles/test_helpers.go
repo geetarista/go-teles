@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	serverHost    = "192.168.36.129"
+	serverHost    = "127.0.0.1"
 	serverPort    = "2856"
 	serverAddress = serverHost + ":" + serverPort
 	dummySpace    = Space{Name: "asdf"}

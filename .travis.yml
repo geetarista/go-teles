@@ -1,0 +1,13 @@
+language: go
+before_install:
+  - sudo add-apt-repository -y ppa:scottritchie/erlang-backports
+  - sudo apt-get update
+  - sudo apt-get -y install build-essential erlang git-core
+  - git clone https://github.com/armon/teles
+  - pushd teles
+  - make deps
+  - make rel
+  - popd
+  - ./teles/rel/teles/bin/teles start
+install: cd teles && go get -d -v && go build -v
+script: go test

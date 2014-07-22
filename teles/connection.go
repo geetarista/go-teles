@@ -51,6 +51,7 @@ func (c *Connection) Send(cmd string) error {
 			c.createSocket()
 			break
 		}
+		return nil
 	}
 
 	return errSendFailed(cmd, strconv.Itoa(c.Attempts))

@@ -15,14 +15,12 @@ func TestCreateSocket(t *testing.T) {
 
 func TestSend(t *testing.T) {
 	conn := Connection{Server: serverAddress}
-	defer conn.Socket.Close()
 	err := conn.Send("derp")
 	failIfError(t, err)
 }
 
 func TestReadDerp(t *testing.T) {
 	conn := Connection{Server: serverAddress}
-	defer conn.Socket.Close()
 	err := conn.Send("list spaces")
 	failIfError(t, err)
 	resp, err := conn.Read()

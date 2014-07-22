@@ -7,7 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -26,11 +25,10 @@ func (c *Connection) createSocket() error {
 	if err != nil {
 		return err
 	}
-	socket, err := net.DialTCP("tcp", nil, addr)
+	c.Socket, err = net.DialTCP("tcp", nil, addr)
 	if err != nil {
 		return err
 	}
-	c.Socket = socket
 	c.Reader = bufio.NewReader(c.Socket)
 	if c.Attempts == 0 {
 		c.Attempts = 3
@@ -46,24 +44,16 @@ func (c *Connection) Send(cmd string) error {
 			return &TelesError{ErrorString: err.Error()}
 		}
 	}
-	sent := false
 	for i := 0; i < c.Attempts; i++ {
 		_, err := c.Socket.Write([]byte(cmd + "\n"))
 
 		if err != nil {
-			if err == syscall.EINVAL {
-				c.createSocket()
-				break
-			}
-			return errCommandFailed(cmd, strconv.Itoa(i))
+			c.createSocket()
+			break
 		}
-		sent = true
-		break
 	}
-	if !sent {
-		return errSendFailed(cmd, strconv.Itoa(c.Attempts))
-	}
-	return nil
+
+	return errSendFailed(cmd, strconv.Itoa(c.Attempts))
 }
 
 // Returns a single line from the socket file

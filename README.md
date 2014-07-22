@@ -1,4 +1,4 @@
-# go-teles ![Build Status](https://travis-ci.org/geetarista/go-teles.png)
+# go-teles [![Build Status](https://drone.io/github.com/geetarista/go-teles/status.png)](https://drone.io/github.com/geetarista/go-teles/latest)
 
 A [teles](https://github.com/armon/teles) client powered by [Go](http://golang.org).
 

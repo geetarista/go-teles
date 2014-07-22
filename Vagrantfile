@@ -32,7 +32,7 @@ fi
 
 ps elf | grep -i teles | awk '{print "kill -9 "$2}' | sh
 
-sudo sudo ./teles/rel/teles/bin/teles start
+sudo ./teles/rel/teles/bin/teles start
 echo "Done."
 EOF
 

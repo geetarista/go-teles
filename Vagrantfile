@@ -2,6 +2,7 @@ $script = <<EOF
 set -e
 
 if [[ $(dpkg -l | grep erlang | tail -n 1) == "" ]]; then
+  sudo apt-get update
   sudo apt-get install -y python-software-properties
   sudo add-apt-repository -y ppa:scottritchie/erlang-backports
   sudo apt-get update
@@ -36,7 +37,7 @@ echo "Done."
 EOF
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "precise64"
+  config.vm.box = "hashicorp/precise64"
   config.vm.provision :shell, :inline => $script
-  config.vm.network :bridged, :bridge => "en0: Wi-Fi (AirPort)"
+  config.vm.network :public_network, :bridge => "en0: Wi-Fi (AirPort)"
 end
